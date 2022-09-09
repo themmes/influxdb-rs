@@ -21,7 +21,7 @@ impl Client {
         let url = self.build_url("api/v2/query", Some(param));
 
         if query.is_some() {
-            let builder = self.client.post(url.await).body(json!(query.unwrap()).to_string());
+            let builder = self.client.post(url.await).header("Content-type", "application/json").body(json!(query.unwrap()).to_string());
             let resp_future = builder.send().boxed();
 
             let res = resp_future.await?;
