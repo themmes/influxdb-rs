@@ -22,7 +22,7 @@ impl Client {
 
         if query.is_some() {
             let builder = self.client.post(url.await).body(json!(query.unwrap()).to_string());
-            let resp_future = builder.bearer_auth(self.jwt_token.clone().unwrap()).send().boxed();
+            let resp_future = builder.send().boxed();
 
             let res = resp_future.await?;
             match res.status().as_u16() {
